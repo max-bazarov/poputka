@@ -25,3 +25,13 @@ class Ride(Base):
     time = Column(DateTime, nullable=False)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     description = Column(String)
+
+
+class Car(Base):
+    __tablename__ = 'car'
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    make = Column(String, nullable=False)
+    model = Column(String, nullable=False)
+    year = Column(Integer)
+    license_plate_number = Column(String, nullable=False)
