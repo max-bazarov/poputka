@@ -1,12 +1,6 @@
 from datetime import datetime
-from sqlalchemy import (
-    TIMESTAMP,
-    Column,
-    ForeignKey,
-    Integer,
-    String,
-    DateTime,
-)
+
+from sqlalchemy import TIMESTAMP, Column, DateTime, ForeignKey, Integer, String
 
 from app.database import Base
 
