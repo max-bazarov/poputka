@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "poputka"
+version = "0.1.0"
+description = ""
+authors = ["Max Bazarov <bazaroffm@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9.13"
+fastapi = {extras = ["all"], version = "^0.95.1"}
+alembic = "^1.10.4"
+sqlalchemy = "^2.0.11"
+asyncpg = "^0.27.0"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
