@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: postgres:13.0-alpine
-    container_name: postgres-hotels
+    container_name: postgres-poputka
     volumes:
       - db_value:/var/lib/postgresql/data/
     env_file:
@@ -14,7 +14,7 @@ services:
       - postgres
 
   pgadmin:
-    container_name: pgadmin-hotels
+    container_name: pgadmin-poputka
     restart: always
     image: dpage/pgadmin4
     depends_on:
