@@ -16,7 +16,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
     async def on_after_register(
         self, user: User, request: Optional[Request] = None
     ):
-        print(f"User {user.id} has registered.")
+        print(f'User {user.id} has registered.')
 
     async def create(
         self,
@@ -35,9 +35,11 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
             if safe
             else user_create.create_update_dict_superuser()
         )
-        password = user_dict.pop("password")
-        user_dict["hashed_password"] = self.password_helper.hash(password)
-        user_dict["role_id"] = 1
+        password = user_dict.pop('password')
+        user_dict['hashed_password'] = self.password_helper.hash(password)
+        user_dict['is_active'] = True
+        user_dict['is_superuser'] = False
+        user_dict['is_verified'] = False
 
         created_user = await self.user_db.create(user_dict)
 
