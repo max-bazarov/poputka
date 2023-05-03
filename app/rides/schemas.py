@@ -1,18 +1,27 @@
-from datetime import datetime
+from datetime import date, time, datetime
 
 from pydantic import BaseModel
+
+
+class CarReadSchema(BaseModel):
+    id: int
+    make: str
+    model: str
+    year: int
+    license_plate_number: str
 
 
 class RideReadSchema(BaseModel):
     id: int
     driver: int
-    car: int
+    car: CarReadSchema
     places: int
     destination_city: str
     destination_address: str
     departure_city: str
     departure_address: str
-    time: datetime
+    time: time
+    date: date
     created_at: datetime
     description: str
 
@@ -28,16 +37,9 @@ class RideCreateSchema(BaseModel):
     destination_address: str
     departure_city: str
     departure_address: str
-    time: datetime
+    time: time
+    date: date
     description: str
 
     class Config:
         orm_mode = True
-
-
-class CarReadSchema(BaseModel):
-    id: int
-    make: str
-    model: str
-    year: int
-    license_plate_number: str
