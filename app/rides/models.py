@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import TIMESTAMP, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import TIMESTAMP, Column, Date, ForeignKey, Integer, String, Time
 
 from app.database import Base
 
@@ -16,7 +16,8 @@ class Ride(Base):
     distination_address = Column(String, nullable=False)
     departure_city = Column(String, nullable=False)
     departure_address = Column(String, nullable=False)
-    time = Column(DateTime, nullable=False)
+    date = Column(Date, nullable=False)
+    time = Column(Time, nullable=False)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     description = Column(String)
 
