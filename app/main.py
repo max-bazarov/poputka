@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
+from app.rides.router import router as rides_router
 from app.users.auth_config import auth_backend, fastapi_users
 from app.users.schemas import UserCreateSchema, UserReadSchema
-from app.rides.router import router as rides_router
 
 app = FastAPI(title='Попутка - поиск автомобильных попутчиков')
 
