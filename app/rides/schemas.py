@@ -1,4 +1,4 @@
-from datetime import date, time, datetime
+from datetime import date, datetime, time
 
 from pydantic import BaseModel
 
@@ -30,7 +30,6 @@ class RideReadSchema(BaseModel):
 
 
 class RideCreateSchema(BaseModel):
-    driver: int
     car: int
     places: int
     destination_city: str
