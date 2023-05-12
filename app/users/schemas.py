@@ -1,24 +1,25 @@
-from typing import Optional
+from dataclasses import Field
 
-from fastapi_users import schemas
+from pydantic import BaseModel, EmailStr, validator
 
-from app.rides.schemas import CarReadSchema
+from app.users.utils import validate_password
 
 
-class UserReadSchema(schemas.BaseUser[int]):
-    id: int
-    email: str
+class UserBaseReadSchema(BaseModel):
+    email: EmailStr
     username: str
-    car: Optional[CarReadSchema]
-    is_active: bool
-    is_superuser: bool
-    is_verified: bool
 
     class Config:
         orm_mode = True
 
 
-class UserCreateSchema(schemas.BaseUserCreate):
+class UserCreateSchema(BaseModel):
     username: str
-    email: str
-    password: str
+    email: EmailStr
+    password: str = Field(min_length=6, max_length=128)
+
+    @validator('password')
+    def validate_password(cls, password: str) -> str:
+        validate_password(password)
+
+        return password
