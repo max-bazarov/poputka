@@ -1,10 +1,17 @@
-from fastapi import Depends
-from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.users.models import User
-from app.database import get_async_session
+import re
 
 
-async def get_user_db(session: AsyncSession = Depends(get_async_session)):
-    yield SQLAlchemyUserDatabase(session, User)
+STRONG_PASSWORD_PATTERN = re.compile(
+    r"^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,128}$"
+)
+
+
+def validate_password(password: str) -> None:
+    if not re.match(STRONG_PASSWORD_PATTERN, password):
+        raise ValueError(
+            "Password must contain at least "
+            "one lower character, "
+            "one upper character, "
+            "digit or "
+            "special symbol"
+        )
