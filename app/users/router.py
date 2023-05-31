@@ -1,5 +1,3 @@
-from typing import Dict, Any
-
 from fastapi import APIRouter, Depends, status
 from app.users.dependencies import valid_user_create
 
@@ -13,7 +11,7 @@ router = APIRouter(prefix='/auth', tags=['Авторизация'])
 @router.post('/register', status_code=status.HTTP_201_CREATED)
 async def register_user(
     auth_data: UserCreateSchema = Depends(valid_user_create),
-) -> dict[str, Any]:
+) -> UserBaseReadSchema:
     user = await UserService.create(auth_data)
     return {
         'email': user['email'],
