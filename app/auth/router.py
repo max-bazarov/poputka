@@ -1,20 +1,21 @@
 from fastapi import APIRouter, Depends, Response, status
-from app.users.dependencies import valid_user_create
+from app.auth.dependencies import valid_user_create
 
-from app.users.schemas import (
+from app.auth.schemas import (
     UserBaseReadSchema,
-    UserAuthSchema,
+    UserAuthRegisterSchema,
+    UserAuthLoginSchema,
     UserLoginAccessTokenResponseSchema,
 )
-from app.users.service import UserService
+from app.auth.service import UserService
 
 
-router = APIRouter(prefix='/auth', tags=['Авторизация'])
+router = APIRouter(prefix='/auth', tags=['Auth'])
 
 
 @router.post('/register', status_code=status.HTTP_201_CREATED)
 async def register_user(
-    auth_data: UserAuthSchema = Depends(valid_user_create),
+    auth_data: UserAuthRegisterSchema = Depends(valid_user_create),
 ) -> UserBaseReadSchema:
     user = await UserService.create(auth_data)
     return {
@@ -25,6 +26,6 @@ async def register_user(
 
 @router.post('/login')
 async def login_user(
-    auth_data: UserAuthSchema, response: Response
+    auth_data: UserAuthLoginSchema, response: Response
 ) -> UserLoginAccessTokenResponseSchema:
     pass

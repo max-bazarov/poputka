@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, validator, Field
 
-from app.users.utils import validate_password
+from app.auth.utils import validate_password, validate_phone_number
 
 
 class UserBaseReadSchema(BaseModel):
@@ -11,9 +11,12 @@ class UserBaseReadSchema(BaseModel):
         orm_mode = True
 
 
-class UserAuthSchema(BaseModel):
-    username: str
+class UserAuthRegisterSchema(BaseModel):
+    name: str
+    surname: str
     email: EmailStr
+    phone_number: str = Field(min_length=11, max_length=20)
+    age: int
     password: str = Field(min_length=6, max_length=128)
 
     @validator('password')
@@ -21,6 +24,17 @@ class UserAuthSchema(BaseModel):
         validate_password(password)
 
         return password
+
+    @validator('phone_number')
+    def validate_phone_number(cls, phone_number: str) -> str:
+        validate_phone_number(phone_number)
+
+        return phone_number
+
+
+class UserAuthLoginSchema(BaseModel):
+    email: EmailStr
+    password: str
 
 
 class UserLoginAccessTokenResponseSchema(BaseModel):
