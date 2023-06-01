@@ -19,5 +19,7 @@ RUN poetry install --no-interaction --no-ansi
 # Copy the source code
 COPY . /app
 
+RUN chmod a+x /app/deploy/*.sh
+
 # Run the app
 CMD ["gunicorn", "app.main:app", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind=0:8000"]
