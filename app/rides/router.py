@@ -8,22 +8,21 @@ from app.users.models import User
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
 
-@router.get('/')
+@router.get('/rides')
 async def get_rides() -> list[RideReadSchema]:
     pass
-    # return await RidesService.get_all()
 
 
-@router.get('/<ride_id:int>')
+@router.get('/rides/{ride_id}')
 async def get_ride_by_id() -> RideReadSchema:
     pass
 
 
-@router.post('/create')
+@router.post('/rides/create')
 async def create_ride() -> RideCreateSchema:
     pass
 
 
-@router.delete('/delete')
-async def delete_ride():  # should be return RideDeleteSchema (in process)
+@router.delete('/rides/{ride_id}/delete')
+async def delete_ride() -> RideReadSchema:
     pass
