@@ -10,7 +10,7 @@ router = APIRouter(
 
 # Получение списка своих бронирований.
 @router.get('/bookings/{user_id}', response_model=list[BookingReadSchema])
-async def add_my_bookings():
+async def get_my_bookings(user_id: int):
     pass
 
 
@@ -22,11 +22,11 @@ async def add_bookings(ride_id: int):
 
 #  Узнать id-поездки.
 @router.get('/id', response_model=list[BookingReadSchema])
-async def add_bookings_id():
+async def get_bookings_id():
     pass
 
 
 #  Отмена бронирования.
 @router.delete('/rides/{ride_id}/bookings/{booking_id}/', response_model=list[BookingReadSchema])
-async def delete_bookings_register():
+async def delete_bookings_register(ride_id: int, booking_id: int):
     pass
