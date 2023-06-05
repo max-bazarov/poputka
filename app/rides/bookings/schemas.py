@@ -8,5 +8,5 @@ class BookingReadSchema(BaseModel):
     ride_id: int
     passenger_id: int
     created_at: datetime
-    accepted_by_driver_at: str
+    accepted_by_driver_at: datetime
 
