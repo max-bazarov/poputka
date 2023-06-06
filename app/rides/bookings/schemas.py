@@ -9,4 +9,3 @@ class BookingReadSchema(BaseModel):
     passenger_id: int
     created_at: datetime
     accepted_by_driver_at: datetime
-

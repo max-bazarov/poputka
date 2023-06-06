@@ -11,4 +11,3 @@ class Booking(Base):
     passenger_id = Column(ForeignKey('user.id'), nullable=False)
     created_at = Column(TIMESTAMP, nullable=False)
     accepted_by_driver_at = Column(TIMESTAMP, nullable=False)
-
