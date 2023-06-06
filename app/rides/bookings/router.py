@@ -15,6 +15,6 @@ async def add_bookings(ride_id: int):
 
 
 #  Отмена бронирования.
-@router.delete('/rides/{ride_id}/bookings/{booking_id}/', response_model=list[BookingReadSchema])
-async def delete_bookings(ride_id: int, booking_id: int):
+@router.delete('/rides/{ride_id}/bookings/{booking_id}/', response_model=BookingReadSchema)
+async def delete_booking(ride_id: int, booking_id: int):
     pass

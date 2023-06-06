@@ -1,8 +1,6 @@
-from datetime import datetime
-
 from app.database import Base
 
-from sqlalchemy import Integer, Column, ForeignKey, TIMESTAMP, String
+from sqlalchemy import Integer, Column, ForeignKey, TIMESTAMP
 
 
 class Booking(Base):
