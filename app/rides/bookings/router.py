@@ -1,4 +1,4 @@
-from app.rides.bookings.schemas import BookingReadSchema
+from app.rides.bookings.schemas import BookingReadSchema, BookingCreateSchema
 from app.rides.router import router
 
 
@@ -10,7 +10,7 @@ async def get_my_bookings() -> list[BookingReadSchema]:
 
 # Забронировать поездку.
 @router.post('/{ride_id}/booking')
-async def add_booking(ride_id: int) -> BookingReadSchema:
+async def add_booking(ride_id: int, new_booking: BookingCreateSchema) -> BookingReadSchema:
     pass
 
 
