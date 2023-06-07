@@ -9,7 +9,7 @@ async def get_my_bookings():
 
 
 # Забронировать поездку.
-@router.post('/{ride_id}/bookings', response_model=list[BookingReadSchema])
+@router.post('/{ride_id}/booking', response_model=BookingReadSchema)
 async def add_bookings(ride_id: int):
     pass
 
