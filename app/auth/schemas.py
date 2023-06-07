@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, validator, Field
 
-from app.auth.utils import validate_password, validate_phone_number
+from app.auth.validators import validate_password, validate_phone_number
 
 
 class UserBaseReadSchema(BaseModel):
@@ -37,6 +37,6 @@ class UserAuthLoginSchema(BaseModel):
     password: str
 
 
-class UserLoginAccessTokenResponseSchema(BaseModel):
+class UserAccessTokenResponseSchema(BaseModel):
     access_token: str
     refresh_token: str
