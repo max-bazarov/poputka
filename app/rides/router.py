@@ -1,24 +1,31 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 
-from app.rides.schemas import RideReadSchema
-from app.rides.service import RidesService
+from app.rides.schemas import RideCreateSchema, RideReadSchema, RideUpdateSchema
 
-# from app.users.auth_config import current_user
 
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
 
-@router.get('')
+@router.get('/', status_code=status.HTTP_200_OK)
 async def get_rides() -> list[RideReadSchema]:
-    return await RidesService.get_all()
-
-
-@router.post('/{ride_id}/bookings')
-async def add_ride() -> list[RideReadSchema]:
     pass
 
-# @router.post('')
-# async def add_ride(
-#     new_ride: RideCreateSchema, # user: User = Depends(current_user)
-# ):
-#     return await RidesService.create(user=user, **new_ride.dict())
+
+@router.get('/{ride_id}', status_code=status.HTTP_200_OK)
+async def get_ride(ride_id: int) -> RideReadSchema:
+    pass
+
+
+@router.post('/', status_code=status.HTTP_201_CREATED)
+async def create_ride(ride_id: int, new_ride: RideCreateSchema) -> RideReadSchema:
+    pass
+
+
+@router.patch('/{ride_id}', status_code=status.HTTP_200_OK)
+async def update_ride(ride_id: int, updated_ride: RideUpdateSchema) -> RideReadSchema:
+    pass
+
+
+@router.delete('/{ride_id}', status_code=status.HTTP_201_DELETED)
+async def delete_ride(ride_id: int) -> RideReadSchema:
+    pass

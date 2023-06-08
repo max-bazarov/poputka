@@ -14,7 +14,7 @@ class Ride(Base):
     car = Column(ForeignKey('car.id'), nullable=False)
     places = Column(Integer, nullable=False)
     destination_city = Column(String, nullable=False)
-    distination_address = Column(String, nullable=False)
+    destination_address = Column(String, nullable=False)
     departure_city = Column(String, nullable=False)
     departure_address = Column(String, nullable=False)
     date = Column(Date, nullable=False)
