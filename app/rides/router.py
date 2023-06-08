@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
-from app.rides.schemas import RideCreateSchema, RideReadSchema
+from app.rides.schemas import RideReadSchema
 from app.rides.service import RidesService
+
 # from app.users.auth_config import current_user
-from app.users.models import User
 
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
@@ -12,6 +12,10 @@ router = APIRouter(prefix='/rides', tags=['Rides'])
 async def get_rides() -> list[RideReadSchema]:
     return await RidesService.get_all()
 
+
+@router.post('/{ride_id}/bookings')
+async def add_ride() -> list[RideReadSchema]:
+    pass
 
 # @router.post('')
 # async def add_ride(
