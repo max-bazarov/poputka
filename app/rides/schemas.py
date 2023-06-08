@@ -42,3 +42,11 @@ class RideCreateSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class RideDeleteSchema(BaseModel):
+    pass
+
+
+class RideUpdateSchema(BaseModel):
+    pass
