@@ -55,3 +55,6 @@ class RideUpdateSchema(BaseModel):
     time: time
     date: date
     description: str
+
+    class Config:
+        orm_mode = True
