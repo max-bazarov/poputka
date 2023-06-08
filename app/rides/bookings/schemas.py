@@ -15,7 +15,6 @@ class BookingReadSchema(BaseModel):
 
 
 class BookingCreateSchema(BaseModel):
-    id: int
     ride_id: int
     passenger_id: int
 
