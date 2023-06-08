@@ -39,14 +39,19 @@ class RideCreateSchema(BaseModel):
     time: time
     date: date
     description: str
+    created_at: datetime
 
     class Config:
         orm_mode = True
 
 
-class RideDeleteSchema(BaseModel):
-    pass
-
-
 class RideUpdateSchema(BaseModel):
-    pass
+    car: int
+    places: int
+    destination_city: str
+    destination_address: str
+    departure_city: str
+    departure_address: str
+    time: time
+    date: date
+    description: str
