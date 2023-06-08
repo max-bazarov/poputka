@@ -14,6 +14,6 @@ async def add_booking(
     pass
 
 
-@router.delete('/rides/{ride_id}/bookings/{booking_id}/')
+@router.delete('/{ride_id}/bookings/{booking_id}')
 async def delete_booking(ride_id: int, booking_id: int) -> BookingReadSchema:
     pass
