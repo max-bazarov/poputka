@@ -10,7 +10,7 @@ from app.rides.schemas import (
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
 
-@router.get('/', status_code=status.HTTP_200_OK)
+@router.get('', status_code=status.HTTP_200_OK)
 async def get_rides() -> list[RideReadSchema]:
     pass
 
@@ -20,7 +20,7 @@ async def get_ride(ride_id: int) -> RideReadSchema:
     pass
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED)
+@router.post('', status_code=status.HTTP_201_CREATED)
 async def create_ride(
     ride_id: int, new_ride: RideCreateSchema
 ) -> RideReadSchema:
