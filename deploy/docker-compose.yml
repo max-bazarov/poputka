@@ -2,8 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    build:
-      context: ../
+    image: digitalspaghetti/poputka
+    # build:
+      # context: ../
     container_name: backend
     restart: always
     env_file:
