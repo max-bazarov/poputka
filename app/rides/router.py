@@ -1,6 +1,10 @@
 from fastapi import APIRouter, status
 
-from app.rides.schemas import RideCreateSchema, RideReadSchema, RideUpdateSchema
+from app.rides.schemas import (
+    RideCreateSchema,
+    RideReadSchema,
+    RideUpdateSchema,
+)
 
 
 router = APIRouter(prefix='/rides', tags=['Rides'])
@@ -17,12 +21,16 @@ async def get_ride(ride_id: int) -> RideReadSchema:
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_ride(ride_id: int, new_ride: RideCreateSchema) -> RideReadSchema:
+async def create_ride(
+    ride_id: int, new_ride: RideCreateSchema
+) -> RideReadSchema:
     pass
 
 
 @router.patch('/{ride_id}', status_code=status.HTTP_200_OK)
-async def update_ride(ride_id: int, updated_ride: RideUpdateSchema) -> RideReadSchema:
+async def update_ride(
+    ride_id: int, updated_ride: RideUpdateSchema
+) -> RideReadSchema:
     pass
 
 

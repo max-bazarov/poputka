@@ -1,7 +1,14 @@
 from datetime import datetime
 
-from sqlalchemy import (TIMESTAMP, Column, Date, ForeignKey, Integer, String,
-                        Time)
+from sqlalchemy import (
+    TIMESTAMP,
+    Column,
+    Date,
+    ForeignKey,
+    Integer,
+    String,
+    Time,
+)
 
 from app.database import Base
 
