@@ -35,5 +35,5 @@ async def update_ride(
 
 
 @router.delete('/{ride_id}', status_code=status.HTTP_204_NO_CONTENT)
-async def delete_ride(ride_id: int) -> RideReadSchema:
+async def delete_ride(ride_id: int):
     pass
