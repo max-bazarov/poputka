@@ -30,6 +30,7 @@ async def register_user(
     }
 
 
+
 @router.post('/login')
 async def login_user(
     auth_data: UserAuthLoginSchema, response: Response
