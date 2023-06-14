@@ -3,7 +3,7 @@ name: Deploy workflow
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   build_and_push_to_docker_hub:
@@ -24,12 +24,11 @@ jobs:
         with:
           context: ./
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/poputka:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/poputka-backend:latest
 
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
-    if: github.ref == 'refs/heads/main'
     steps:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
@@ -38,7 +37,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/poputka
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/poputka-backend
             sudo docker stop $(sudo docker ps -a -q)
             sudo docker-compose stop
             sudo docker-compose rm backend

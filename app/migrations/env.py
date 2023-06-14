@@ -7,6 +7,7 @@ from sqlalchemy import engine_from_config, pool
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
+from app.auth.models import RefreshToken
 from app.config import settings
 from app.database import Base
 from app.rides.models import Car, Ride
