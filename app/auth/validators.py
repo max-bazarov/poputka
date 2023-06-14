@@ -1,8 +1,7 @@
 import re
 
-
 STRONG_PASSWORD_PATTERN = re.compile(
-    r'^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,128}$'
+    r'^(?=.*[\d])(?=.*[!@#$%^&*-])[\w!@#$%^&*-]{8,24}$'
 )
 
 PHONE_NUMBER_PATTERN = re.compile(
@@ -25,5 +24,5 @@ def validate_phone_number(phone_number: str) -> None:
     if not re.match(PHONE_NUMBER_PATTERN, phone_number):
         raise ValueError(
             'Номер телефона недействителен. '
-            'Введите номер в формате +7 (XXX) XXX-XX-XX или 8XXXXXXXXXX.'
+            'Введите номер в формате +7XXXXXXXXXX или 8XXXXXXXXXX.'
         )
