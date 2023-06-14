@@ -1,16 +1,15 @@
-"""create user model
+"""initial
 
-Revision ID: bcbbec6a7608
+Revision ID: 33a02a23d1ef
 Revises: 
-Create Date: 2023-05-31 17:19:43.710042
+Create Date: 2023-06-14 14:49:31.962859
 
 """
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = 'bcbbec6a7608'
+revision = '33a02a23d1ef'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,14 +30,15 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=254), nullable=False),
     sa.Column('name', sa.String(length=254), nullable=False),
     sa.Column('surname', sa.String(length=254), nullable=True),
-    sa.Column('phone_number', sa.String(), nullable=True),
+    sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('car_id', sa.Integer(), nullable=True),
     sa.Column('age', sa.Integer(), nullable=False),
     sa.Column('likes', sa.Integer(), nullable=True),
     sa.Column('dislikes', sa.Integer(), nullable=True),
     sa.Column('registered_at', sa.TIMESTAMP(), nullable=True),
-    sa.Column('hashed_password', sa.String(length=1024), nullable=False),
+    sa.Column('password', sa.LargeBinary(), nullable=False),
     sa.Column('is_admin', sa.Boolean(), nullable=False),
+    sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_verified', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['car_id'], ['car.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -49,7 +49,7 @@ def upgrade() -> None:
     sa.Column('car', sa.Integer(), nullable=False),
     sa.Column('places', sa.Integer(), nullable=False),
     sa.Column('destination_city', sa.String(), nullable=False),
-    sa.Column('distination_address', sa.String(), nullable=False),
+    sa.Column('destination_address', sa.String(), nullable=False),
     sa.Column('departure_city', sa.String(), nullable=False),
     sa.Column('departure_address', sa.String(), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
