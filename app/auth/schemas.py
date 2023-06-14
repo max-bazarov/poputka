@@ -1,11 +1,13 @@
-from pydantic import BaseModel, EmailStr, validator, Field
+from typing import Optional
+
+from pydantic import BaseModel, EmailStr, Field, validator
 
 from app.auth.validators import validate_password, validate_phone_number
 
 
 class UserBaseReadSchema(BaseModel):
+    id: int
     email: EmailStr
-    username: str
 
     class Config:
         orm_mode = True
@@ -13,7 +15,7 @@ class UserBaseReadSchema(BaseModel):
 
 class UserAuthRegisterSchema(BaseModel):
     name: str
-    surname: str
+    surname: Optional[str] = None
     email: EmailStr
     phone_number: str = Field(min_length=11, max_length=20)
     age: int
@@ -30,6 +32,18 @@ class UserAuthRegisterSchema(BaseModel):
         validate_phone_number(phone_number)
 
         return phone_number
+
+    class Config:
+        schema_extra = {
+            'example': {
+                'name': 'Ivan',
+                'surname': 'Ivanov',
+                'age': 25,
+                'phone_number': '+79123456789',
+                'email': 'ivanov@gmail.com',
+                'password': 'Password1234!',
+            }
+        }
 
 
 class UserAuthLoginSchema(BaseModel):
