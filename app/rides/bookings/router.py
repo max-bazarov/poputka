@@ -1,10 +1,15 @@
+from fastapi import Depends
+
+from app.auth.dependencies import get_current_ride
 from app.rides.bookings.schemas import BookingReadSchema, BookingCreateSchema
+from app.rides.bookings.service import BookingService
+from app.rides.models import Ride
 from app.rides.router import router
 
 
 @router.get('/bookings')
-async def get_my_bookings() -> list[BookingReadSchema]:
-    pass
+async def get_my_bookings(ride: Ride = Depends()) -> list[BookingReadSchema]:
+    return await BookingService.get_all(ride_id=ride.id)
 
 
 @router.post('/{ride_id}/bookings')
