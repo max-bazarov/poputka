@@ -28,13 +28,13 @@ async def valid_refresh_token_user():
 
 
 async def get_token(request: Request):
-    token = request.cookies.get('booking_access_token')
+    token = request.cookies.get('ACCESS_TOKEN_KEY')
     if not token:
         raise TokenAbsentException
     return token
 
 
-async def get_current_ride(token: str = Depends(get_token)):
+async def get_current_user(token: str = Depends(get_token)):
     try:
         payload = jwt.decode(token, config.JWT_SECRET, config.JWT_ALG)
 

@@ -7,8 +7,8 @@ from app.rides.models import Ride
 from app.rides.router import router
 
 
-@router.get('/bookings')
-async def get_my_bookings(ride: Ride = Depends()) -> list[BookingReadSchema]:
+@router.get('/bookings/{ride_id}')
+async def get_my_bookings(ride_id: int, ride: Ride = Depends()) -> list[BookingReadSchema]:
     return await BookingService.get_all(ride_id=ride.id)
 
 
