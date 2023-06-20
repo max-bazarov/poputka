@@ -28,7 +28,7 @@ async def valid_refresh_token_user():
 
 
 async def get_token(request: Request):
-    token = request.cookies.get('config.ACCESS_TOKEN_KEY')
+    token = request.cookies.get(config.ACCESS_TOKEN_KEY)
     if not token:
         raise TokenAbsentException
     return token
@@ -47,7 +47,7 @@ async def get_current_user(token: str = Depends(get_token)):
     user_id: str = payload.get('sub')
     if not user_id:
         raise TokenAbsentException
-    user = await RidesService.get_object_or_none(int(ride_id))
+    user = await RidesService.get_object_or_none(user_id)
     if not user:
         raise TokenAbsentException
     return user
