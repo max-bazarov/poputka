@@ -28,7 +28,7 @@ async def valid_refresh_token_user():
 
 
 async def get_token(request: Request):
-    token = request.cookies.get('ACCESS_TOKEN_KEY')
+    token = request.cookies.get('config.ACCESS_TOKEN_KEY')
     if not token:
         raise TokenAbsentException
     return token
@@ -44,11 +44,11 @@ async def get_current_user(token: str = Depends(get_token)):
     expire: str = payload.get('exp')
     if (not expire) or (int(expire) < datetime.utcnow().timestamp()):
         raise TokenAbsentException
-    ride_id: str = payload.get('sub')
-    if not ride_id:
+    user_id: str = payload.get('sub')
+    if not user_id:
         raise TokenAbsentException
-    ride = await RidesService.get_object_or_none(int(ride_id))
-    if not ride:
+    user = await RidesService.get_object_or_none(int(ride_id))
+    if not user:
         raise TokenAbsentException
-    return ride
+    return user
 
