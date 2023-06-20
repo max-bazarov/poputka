@@ -1,9 +1,5 @@
-from fastapi import Depends
-
-from app.auth.dependencies import get_current_ride
 from app.rides.bookings.schemas import BookingReadSchema, BookingCreateSchema
 from app.rides.bookings.service import BookingService
-from app.rides.models import Ride
 from app.rides.router import router
 
 

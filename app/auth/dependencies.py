@@ -51,4 +51,3 @@ async def get_current_user(token: str = Depends(get_token)):
     if not user:
         raise TokenAbsentException
     return user
-
