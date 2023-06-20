@@ -35,18 +35,6 @@ class UserAuthRegisterSchema(BaseModel):
             }
         }
 
-    class Config:
-        schema_extra = {
-            'example': {
-                'name': 'Ivan',
-                'surname': 'Ivanov',
-                'age': 25,
-                'phone_number': '+79123456789',
-                'email': 'ivanov@gmail.com',
-                'password': 'Password1234!',
-            }
-        }
-
 
 class UserAuthLoginSchema(BaseModel):
     email: EmailStr
