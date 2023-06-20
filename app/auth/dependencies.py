@@ -47,7 +47,7 @@ async def get_current_user(token: str = Depends(get_token)):
     user_id: str = payload.get('sub')
     if not user_id:
         raise TokenAbsentException
-    user = await RidesService.get_object_or_none(user_id)
+    user = await RidesService.get_object_or_none(int(user_id))
     if not user:
         raise TokenAbsentException
     return user
