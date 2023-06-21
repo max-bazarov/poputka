@@ -2,7 +2,6 @@ from datetime import datetime
 
 from app.auth.exceptions import EmailTakenException, TokenAbsentException
 from app.auth.schemas import UserAuthRegisterSchema
-from app.auth.service import UserService
 from fastapi import Request, Depends
 from jose import jwt, JWTError
 
