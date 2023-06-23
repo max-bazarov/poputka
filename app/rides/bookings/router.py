@@ -1,10 +1,11 @@
 from app.rides.bookings.schemas import BookingReadSchema, BookingCreateSchema
+from app.rides.bookings.service import BookingService
 from app.rides.router import router
 
 
-@router.get('/bookings')
-async def get_my_bookings() -> list[BookingReadSchema]:
-    pass
+@router.get('/{ride_id}/bookings')
+async def get_bookings(ride_id: int) -> list[BookingReadSchema]:
+    return await BookingService.get_all(ride_id=ride_id)
 
 
 @router.post('/{ride_id}/bookings')
