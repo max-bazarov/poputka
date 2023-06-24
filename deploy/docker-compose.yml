@@ -59,6 +59,21 @@ services:
       - postgres
     platform: linux/amd64
 
+  cache:
+    image: redis:7.2-alpine
+    container_name: redis_poputka
+    env_file:
+      - ../.env.example
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
+
+
+
+
+
 networks:
   postgres:
     driver: bridge
