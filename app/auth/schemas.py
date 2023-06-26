@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, EmailStr, Field, validator
 
 from app.auth.validators import validate_password
@@ -13,7 +15,7 @@ class UserBaseReadSchema(BaseModel):
 
 class UserAuthRegisterSchema(BaseModel):
     name: str
-    surname: str
+    surname: Optional[str] = None
     email: EmailStr
     password: str = Field(min_length=8, max_length=24)
 
