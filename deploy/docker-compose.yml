@@ -26,6 +26,13 @@ services:
       - "5432:5432"
     networks:
       - postgres
+    
+  frontend:
+    image: digitalspaghetti/poputka-frontend:latest
+    container_name: frontend
+    restart: always
+    networks:
+      - postgres
 
   nginx:
     image: nginx:1.21.3-alpine
@@ -38,26 +45,6 @@ services:
       - backend
     networks:
       - postgres
-  
-  pgadmin:
-    container_name: pgadmin-poputka
-    restart: always
-    image: dpage/pgadmin4
-    depends_on:
-      - db
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    env_file:
-      - ../.env
-    volumes:
-       - pgadmin:/var/lib/pgadmin
-    ports:
-      - "5050:80"
-    networks:
-      - postgres
-    platform: linux/amd64
 
 networks:
   postgres:
