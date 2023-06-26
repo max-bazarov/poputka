@@ -1,11 +1,7 @@
 from fastapi import APIRouter, status
 
-from app.rides.schemas import (
-    RideCreateSchema,
-    RideReadSchema,
-    RideUpdateSchema,
-)
-
+from app.rides.schemas import (RideCreateSchema, RideReadSchema,
+                               RideUpdateSchema)
 
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
