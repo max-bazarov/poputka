@@ -20,6 +20,7 @@ redis = "^4.5.5"
 aioredis = "^2.0.1"
 pytest = "^7.4.0"
 pytest-asyncio = "^0.21.0"
+fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
 
 
 [build-system]
