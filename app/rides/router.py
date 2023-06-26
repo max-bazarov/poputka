@@ -1,11 +1,12 @@
 from fastapi import APIRouter, status
 from fastapi_cache.decorator import cache
 
-from app.rides.schemas import (RideCreateSchema, RideReadSchema,
-                               RideUpdateSchema)
-
+from app.rides.schemas import (
+    RideCreateSchema,
+    RideReadSchema,
+    RideUpdateSchema,
+)
 from app.rides.service import RidesService
-
 
 router = APIRouter(prefix='/rides', tags=['Rides'])
 

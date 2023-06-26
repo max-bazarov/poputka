@@ -1,15 +1,23 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, Response, status
 
 from app.auth.config import config
-from app.auth.dependencies import (valid_refresh_token,
-                                   valid_refresh_token_user, valid_user_create)
+from app.auth.dependencies import (
+    valid_refresh_token,
+    valid_refresh_token_user,
+    valid_user_create,
+)
 from app.auth.email import send_mail
-from app.auth.jwt import (create_access_token, create_refresh_token,
-                          get_token_settings)
+from app.auth.jwt import (
+    create_access_token,
+    create_refresh_token,
+    get_token_settings,
+)
 from app.auth.models import RefreshToken
-from app.auth.schemas import (UserAccessTokenResponseSchema,
-                              UserAuthLoginSchema, UserAuthRegisterSchema)
-
+from app.auth.schemas import (
+    UserAccessTokenResponseSchema,
+    UserAuthLoginSchema,
+    UserAuthRegisterSchema,
+)
 from app.auth.service import UserService
 from app.auth.utils import verify_user
 from app.users.models import User
