@@ -1,14 +1,19 @@
 from fastapi import APIRouter, status
+from fastapi_cache.decorator import cache
 
 from app.rides.schemas import (RideCreateSchema, RideReadSchema,
                                RideUpdateSchema)
 
+from app.rides.service import RidesService
+
+
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
 
-@router.get('', status_code=status.HTTP_200_OK)
+@router.get('', response_model=RideReadSchema, status_code=status.HTTP_200_OK)
+@cache(expire=180)
 async def get_rides() -> list[RideReadSchema]:
-    pass
+    return await RidesService.get_all()
 
 
 @router.get('/{ride_id}', status_code=status.HTTP_200_OK)

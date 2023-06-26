@@ -7,3 +7,7 @@ class EmailTakenException(BadRequestException):
 
 class InvalidCredentialsException(NotAuthenticatedException):
     DETAIL = 'Неверно введены данные'
+
+
+class TokenAbsentException(NotAuthenticatedException):
+    DETAIL = 'Токен отсутствует.'

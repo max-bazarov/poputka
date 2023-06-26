@@ -9,6 +9,7 @@ from app.auth.jwt import (create_access_token, create_refresh_token,
 from app.auth.models import RefreshToken
 from app.auth.schemas import (UserAccessTokenResponseSchema,
                               UserAuthLoginSchema, UserAuthRegisterSchema)
+
 from app.auth.service import UserService
 from app.auth.utils import verify_user
 from app.users.models import User
