@@ -33,27 +33,28 @@ async def create_refresh_token(
         return refresh_token
 
 
-async def create_access_token(*, user_id: int, is_user_admin: bool) -> str:
+async def create_access_token(user_id: int) -> str:
     expires_delta = timedelta(seconds=config.ACCESS_TOKEN_EXP)
     jwt_data = {
         'iss': settings.SITE_DOMAIN,
         'sub': str(user_id),
         'iat': datetime.utcnow(),
         'exp': datetime.utcnow() + expires_delta,
-        'is_admin': is_user_admin,
     }
 
     return jwt.encode(jwt_data, config.JWT_SECRET, config.JWT_ALG)
 
 
-def get_access_token_settings(
-    access_token: str,
+def get_token_settings(
+    token_value: str,
+    token_key: str,
+    token_exp: int,
     expired: bool = False,
 ) -> dict[str, Any]:
     base_cookie = {
-        'key': config.ACCESS_TOKEN_KEY,
+        'key': token_key,
         'httponly': True,
-        'samesite': 'none',
+        'samesite': 'strict',
         'secure': config.SECURE_COOKIES,
         'domain': settings.SITE_DOMAIN,
     }
@@ -62,6 +63,6 @@ def get_access_token_settings(
 
     return {
         **base_cookie,
-        'value': access_token,
-        'max_age': config.ACCESS_TOKEN_EXP,
+        'value': token_value,
+        'max_age': token_exp,
     }
