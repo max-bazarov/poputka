@@ -1,4 +1,4 @@
-from app.rides.bookings.schemas import BookingReadSchema, BookingCreateSchema
+from app.rides.bookings.schemas import BookingCreateSchema, BookingReadSchema
 from app.rides.router import router
 
 
