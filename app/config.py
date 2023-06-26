@@ -1,13 +1,20 @@
+from typing import Literal
+
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
+    MODE: Literal['DEV', 'PROD']
+    SITE_DOMAIN: str
+
     DB_HOST: str
     DB_PORT: int
+    DB_NAME: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
-    DB_NAME: str
-    SITE_DOMAIN: str
+
+    REDIS_HOST: str
+    REDIS_PORT: str
 
     @property
     def database_url(self):
