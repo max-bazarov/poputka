@@ -24,6 +24,8 @@ services:
       - ../.env
     networks:
       - postgres
+    ports:
+      - "5432:5432"
     
   frontend:
     image: digitalspaghetti/poputka-frontend:latest
