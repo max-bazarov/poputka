@@ -33,7 +33,7 @@ async def create_refresh_token(
         return refresh_token
 
 
-async def create_access_token(user_id: int) -> str:
+def create_access_token(user_id: int) -> str:
     expires_delta = timedelta(seconds=config.ACCESS_TOKEN_EXP)
     jwt_data = {
         'iss': settings.SITE_DOMAIN,
