@@ -11,7 +11,7 @@ from app.rides.service import RidesService
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
 
-@router.get('', response_model=RideReadSchema, status_code=status.HTTP_200_OK)
+@router.get('', status_code=status.HTTP_200_OK)
 @cache(expire=180)
 async def get_rides() -> list[RideReadSchema]:
     return await RidesService.get_all()
@@ -23,9 +23,7 @@ async def get_ride(ride_id: int) -> RideReadSchema:
 
 
 @router.post('', status_code=status.HTTP_201_CREATED)
-async def create_ride(
-    ride_id: int, new_ride: RideCreateSchema
-) -> RideReadSchema:
+async def create_ride(new_ride: RideCreateSchema) -> RideReadSchema:
     pass
 
 
