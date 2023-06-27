@@ -1,9 +1,12 @@
-from celery import Celery
+from pydantic import EmailStr
+from app.tasks.celery import celery
+from app.auth.email import send_email
 
-from app.config import settings
 
-celery = Celery(
-    'tasks',
-    broker=f'redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}',
-    include=['app.tasks.tasks']
-)
+@celery.task
+def send_verification_email(
+    user_email: EmailStr,
+    user_name: str,
+    user_id: int
+):
+    send_email(user_email=user_email, user_name=user_name, user_id=user_id)
