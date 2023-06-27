@@ -1,6 +1,7 @@
 from pydantic import EmailStr
-from app.tasks.celery import celery
+
 from app.auth.email import send_email
+from app.tasks.celery import celery
 
 
 @celery.task

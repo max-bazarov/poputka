@@ -6,7 +6,6 @@ from app.auth.dependencies import (
     valid_refresh_token_user,
     valid_user_create,
 )
-from app.tasks.tasks import send_verification_email
 from app.auth.jwt import (
     create_access_token,
     create_refresh_token,
@@ -20,6 +19,7 @@ from app.auth.schemas import (
 )
 from app.auth.service import UserService
 from app.auth.utils import verify_user
+from app.tasks.tasks import send_verification_email
 from app.users.models import User
 
 router = APIRouter(prefix='/auth', tags=['Auth'])

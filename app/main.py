@@ -5,9 +5,9 @@ from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 
 from app.auth.router import router as auth_router
+from app.config import settings
 from app.rides.bookings.router import router as bookings_router
 from app.rides.router import router as rides_router
-from app.config import settings
 
 app = FastAPI(
     title='Попутка - поиск автомобильных попутчиков', root_path='/api'
