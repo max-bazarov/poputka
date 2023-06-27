@@ -11,6 +11,7 @@ services:
       - ../.env
     depends_on: 
       - db
+      - redis
     command: ["/app/deploy/app.sh"]
     networks:
       - postgres
@@ -41,10 +42,10 @@ services:
       - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - backend
     networks:
       - postgres
+    depends_on:
+      - backend
 
   redis:
     image: redis:7-alpine
@@ -52,6 +53,35 @@ services:
     env_file:
       - ../.env
     restart: always
+    networks:
+      - postgres
+  
+  celery:
+    build:
+      context: ../
+    container_name: celery_poputka
+    env_file:
+      - ../.env
+    command: ["/app/deploy/celery.sh", "celery"]
+    networks:
+      - postgres
+    depends_on:
+      - redis
+
+  flower:
+    build:
+      context: ../
+    container_name: flower_poputka
+    env_file:
+      - ../.env
+    command: ["/app/deploy/celery.sh", "flower"]
+    networks:
+      - postgres
+    depends_on:
+      - redis
+    ports:
+      - "5555:5555"
+    
 
 
 networks:
