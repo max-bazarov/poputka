@@ -18,7 +18,7 @@ class UserService(BaseService):
             query = (
                 insert(cls.model)
                 .values(**auth_data.dict())
-                .returning(cls.model.id, cls.model.email)
+                .returning(cls.model.id, cls.model.email, cls.model.name)
             )
             result = await session.execute(query)
             await session.commit()

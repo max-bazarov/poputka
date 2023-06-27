@@ -52,3 +52,6 @@ class UserAuthLoginSchema(BaseModel):
 class UserAccessTokenResponseSchema(BaseModel):
     access_token: str
     refresh_token: str
+
+    class Config:
+        orm_mode = True

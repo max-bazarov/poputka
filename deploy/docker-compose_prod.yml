@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    image: digitalspaghetti/poputka-backend:latest
+    container_name: backend
+    restart: always
+    env_file:
+      - ./.env-prod
+    depends_on: 
+      - db
+
+  frontend:
+    image: digitalspaghetti/poputka-frontend:latest
+    container_name: frontend
+    restart: always
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: always
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/logs:/var/log/postgresql
+    env_file:
+      - ./.env-prod
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - backend

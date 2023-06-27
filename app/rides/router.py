@@ -8,7 +8,6 @@ from app.rides.schemas import (
 )
 from app.rides.service import RidesService
 
-
 router = APIRouter(prefix='/rides', tags=['Rides'])
 
 
