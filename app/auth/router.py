@@ -6,7 +6,7 @@ from app.auth.dependencies import (
     valid_refresh_token_user,
     valid_user_create,
 )
-from app.auth.email import send_mail
+from app.tasks.tasks import send_verification_email
 from app.auth.jwt import (
     create_access_token,
     create_refresh_token,
@@ -32,7 +32,8 @@ async def register_user(
 ) -> UserAccessTokenResponseSchema:
     user = await UserService.create(auth_data)
     refresh_token_value = await create_refresh_token(user_id=user.id)
-    access_token_value = await create_access_token(user_id=user.id)
+    access_token_value = create_access_token(user_id=user.id)
+
     response.set_cookie(
         **get_token_settings(
             access_token_value,
@@ -48,9 +49,7 @@ async def register_user(
         )
     )
 
-    await send_mail(
-        user_email=user.email, user_name=user.name, user_id=user.id
-    )
+    send_verification_email.delay(user.email, user.name, user.id)
 
     return UserAccessTokenResponseSchema(
         access_token=access_token_value, refresh_token=refresh_token_value
@@ -63,7 +62,7 @@ async def login_user(
 ) -> UserAccessTokenResponseSchema:
     user = await UserService.authenticate_user(auth_data)
     refresh_token_value = await create_refresh_token(user_id=user.get('id'))
-    access_token_value = await create_access_token(
+    access_token_value = create_access_token(
         user_id=user.get('id'),
     )
 
