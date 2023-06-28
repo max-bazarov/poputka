@@ -7,5 +7,6 @@ https://poputka.app/api/docs/
 Склонируйте репозиторий на свой компьютер
 - Измените файл .env.example на .env и заполните его
 - Убедитесь, что у вас установлен Docker и Docker Compose последних версий
-- Запустите проект командами `docker-compose rm -f` `docker-compose pull` `docker-compose up`
+- Перейдите в папку deploy
+- Запустите проект командами `docker-compose up --build`
 - Проект доступен по адресу http://localhost/ 
