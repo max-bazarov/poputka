@@ -29,7 +29,9 @@ services:
       - "5432:5432"
     
   frontend:
-    image: digitalspaghetti/poputka-frontend:latest
+    # image: digitalspaghetti/poputka-frontend:latest
+    build:
+      context: ../frontend
     container_name: frontend
     restart: always
     networks:
