@@ -1,6 +1,7 @@
 from app.rides.bookings.schemas import BookingCreateSchema, BookingReadSchema
 from app.rides.bookings.service import BookingService
 from app.rides.router import router
+from app.rides.models import driver, places, created_ad, description
 
 
 @router.get('/{ride_id}/bookings')
@@ -12,7 +13,9 @@ async def get_bookings(ride_id: int) -> list[BookingReadSchema]:
 async def add_booking(
     ride_id: int, new_booking: BookingCreateSchema
 ) -> BookingReadSchema:
-    pass
+    booking = await BookingService.create(driver.id, places, created_ad, description)
+    if not booking:
+        raise CannotBeBooked
 
 
 @router.delete('/{ride_id}/bookings/{booking_id}')

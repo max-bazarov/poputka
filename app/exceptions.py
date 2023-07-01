@@ -33,3 +33,8 @@ class NotAuthenticatedException(DetailedHTTPException):
 
     def __init__(self) -> None:
         super().__init__(headers={"WWW-Authenticate": "Bearer"})
+
+
+class CannotBeBooked(DetailedHTTPException)
+    STATUS_CODE = status.HTTP_409_CONFLICT
+    DETAIL = "Reservations not available"
