@@ -1,10 +1,11 @@
+import os
 from typing import Literal
 
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    MODE: Literal['DEV', 'PROD']
+    MODE: Literal['DEV', 'PROD', 'TEST']
     SITE_DOMAIN: str
 
     DB_HOST: str
@@ -23,7 +24,7 @@ class Settings(BaseSettings):
         return f'postgresql+asyncpg://{user}@{database}'
 
     class Config:
-        env_file = '.env'
+        env_file = '.env' if os.getenv('MODE') != 'TEST' else '.env_test'
 
 
 settings = Settings()
