@@ -1,8 +1,6 @@
-from typing import Optional
-
 from pydantic import BaseModel, EmailStr, Field, validator
 
-from app.auth.validators import validate_password
+from app.auth.validators import validate_password, validate_email
 
 
 class UserBaseReadSchema(BaseModel):
@@ -15,7 +13,7 @@ class UserBaseReadSchema(BaseModel):
 
 class UserAuthRegisterSchema(BaseModel):
     name: str
-    surname: Optional[str] = None
+    surname: str
     email: EmailStr
     password: str = Field(min_length=8, max_length=24)
 
@@ -24,6 +22,12 @@ class UserAuthRegisterSchema(BaseModel):
         validate_password(password)
 
         return password
+
+    @validator('email')
+    def validate_email(cls, email: str) -> str:
+        validate_email(email)
+
+        return email
 
     class Config:
         schema_extra = {
