@@ -8,6 +8,15 @@ PHONE_NUMBER_PATTERN = re.compile(
     r'^(?:\+7|8)?[-(]?\d{3}[-)]?\d{3}[-]?\d{2}[-]?\d{2}$'
 )
 
+EMAIL_PATTERN = re.compile(
+    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'
+)
+
+
+def validate_email(email: str) -> None:
+    if not re.match(EMAIL_PATTERN, email):
+        raise ValueError('Неверный формат почты')
+
 
 def validate_password(password: str) -> None:
     if not re.match(STRONG_PASSWORD_PATTERN, password):
