@@ -2,9 +2,11 @@
 ignore =
     W503
     Q000
+    Q002
 exclude =
-    tests/,
+    */tests/,
     */migrations/,
     venv/,
     env/,
 max-complexity = 10
+max-line-length = 88

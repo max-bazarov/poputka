@@ -2,7 +2,7 @@ import asyncio
 import json
 
 import pytest
-from fastapi.testclient import TestClient
+from fastapi.testclient import TestClient  # noqa
 from httpx import AsyncClient
 from sqlalchemy import insert
 
@@ -10,8 +10,8 @@ from app.auth.security import hash_password
 from app.config import settings
 from app.database import Base, async_session_maker, engine
 from app.main import app as fastapi_app
-from app.rides.bookings.models import Booking
-from app.rides.models import Car, Ride
+from app.rides.bookings.models import Booking  # noqa
+from app.rides.models import Car, Ride  # noqa
 from app.users.models import User
 
 
