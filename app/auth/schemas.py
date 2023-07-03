@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, validator
 
-from app.auth.validators import validate_password, validate_email
+from app.auth.validators import validate_email, validate_password
 
 
 class UserBaseReadSchema(BaseModel):
