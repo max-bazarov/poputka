@@ -3,14 +3,10 @@ from datetime import datetime
 from fastapi import Depends, Request
 from jose import JWTError, jwt
 
+from app.auth.config import config
 from app.auth.exceptions import EmailTakenException, TokenAbsentException
 from app.auth.schemas import UserAuthRegisterSchema
-from fastapi import Request, Depends
-from jose import jwt, JWTError
-
-from app.auth.config import config
 from app.auth.service import UserService
-from app.users import config
 
 
 async def valid_user_create(
