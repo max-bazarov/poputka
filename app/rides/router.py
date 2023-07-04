@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 from fastapi_cache.decorator import cache
 
 from app.rides.schemas import (
@@ -24,7 +24,8 @@ async def get_ride(ride_id: int) -> RideReadSchema:
 
 @router.post('', status_code=status.HTTP_201_CREATED)
 async def create_ride(new_ride: RideCreateSchema) -> RideReadSchema:
-    pass
+    ride = await RidesService.create(**new_ride.dict())
+    return ride
 
 
 @router.patch('/{ride_id}', status_code=status.HTTP_200_OK)

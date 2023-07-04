@@ -2,11 +2,11 @@
 name = "poputka"
 version = "0.1.0"
 description = ""
-authors = ["Max Bazarov <bazaroffm@gmail.com>"]
+authors = ["samsegomof <wemagonof91@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9.13"
+python = "^3.9"
 fastapi = {extras = ["all"], version = "^0.95.1"}
 alembic = "^1.10.4"
 sqlalchemy = "^2.0.11"
@@ -24,6 +24,7 @@ aioredis = "^2.0.1"
 pytest-asyncio = "^0.21.0"
 fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
 bcrypt = "^4.0.1"
+poetry = "^1.5.1"
 
 
 [build-system]
