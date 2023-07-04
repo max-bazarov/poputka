@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, status
 from fastapi_cache.decorator import cache
 
 from app.rides.schemas import (
