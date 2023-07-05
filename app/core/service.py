@@ -7,9 +7,9 @@ class BaseService:
     model: Base = None
 
     @classmethod
-    async def get_object_or_none(cls, **filter_by):
+    async def get_object_or_none(cls, **filter):
         async with async_session_maker() as session:
-            query = select(cls.model.__table__.columns).filter_by(**filter_by)
+            query = select(cls.model.__table__.columns).filter_by(**filter)
             result = await session.execute(query)
             return result.mappings().one_or_none()
 

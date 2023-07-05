@@ -19,3 +19,4 @@ async def get_info_about_user_without_password_by_user_id(user: User = Depends(g
 async def get_uuid_name_surname_age_likes_dislikes_reg_at_by_user_id(user_id: str):
     result = await UserService.get_uuid_name_surname_age_likes_dislikes_reg_at_by_uuid(user_id)
     return result
+
