@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import TIMESTAMP, UUID, Column, ForeignKey, String
+from sqlalchemy import UUID, Column, DateTime, ForeignKey, String
 
 from app.database import Base
 
@@ -11,10 +11,10 @@ class RefreshToken(Base):
     uuid = Column(UUID, primary_key=True)
     user_id = Column(ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     refresh_token = Column(String, nullable=False)
-    expires_at = Column(TIMESTAMP, nullable=False)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(
-        TIMESTAMP,
+        DateTime,
         default=datetime.utcnow,
         onupdate=datetime.utcnow,
         nullable=False,
