@@ -19,7 +19,7 @@ from app.database import Base
 class User(Base):
     __tablename__ = 'user'
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    id = Column(UUID, primary_key=True, default=uuid4)
     email = Column(String(length=254), nullable=False)
     name = Column(String(length=254), nullable=False)
     surname = Column(String(length=254), nullable=False)
