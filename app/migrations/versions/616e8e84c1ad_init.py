@@ -1,7 +1,7 @@
 """init
 
 Revision ID: 616e8e84c1ad
-Revises: 
+Revises:
 Create Date: 2023-06-26 22:55:28.490892
 
 """
@@ -27,7 +27,7 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.UUID(), nullable=False),
     sa.Column('email', sa.String(length=254), nullable=False),
     sa.Column('name', sa.String(length=254), nullable=False),
     sa.Column('surname', sa.String(length=254), nullable=False),
@@ -46,7 +46,7 @@ def upgrade() -> None:
     )
     op.create_table('refresh_token',
     sa.Column('uuid', sa.UUID(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.UUID(), nullable=False),
     sa.Column('refresh_token', sa.String(), nullable=False),
     sa.Column('expires_at', sa.TIMESTAMP(), nullable=False),
     sa.Column('created_at', sa.TIMESTAMP(), nullable=False),
@@ -56,7 +56,7 @@ def upgrade() -> None:
     )
     op.create_table('ride',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('driver', sa.Integer(), nullable=False),
+    sa.Column('driver', sa.UUID(), nullable=False),
     sa.Column('car', sa.Integer(), nullable=False),
     sa.Column('places', sa.Integer(), nullable=False),
     sa.Column('destination_city', sa.String(), nullable=False),

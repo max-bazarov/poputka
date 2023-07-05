@@ -8,6 +8,7 @@ from app.auth.router import router as auth_router
 from app.config import settings
 from app.rides.bookings.router import router as bookings_router
 from app.rides.router import router as rides_router
+from app.users.router import router as users_router
 
 app = FastAPI(
     title='Попутка - поиск автомобильных попутчиков', root_path='/api'
@@ -36,6 +37,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(rides_router)
 app.include_router(bookings_router)
+app.include_router(users_router)
 
 
 @app.on_event("startup")
