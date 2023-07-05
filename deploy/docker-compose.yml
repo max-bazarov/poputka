@@ -19,8 +19,6 @@ services:
   db:
     image: postgres:13.0-alpine
     container_name: db
-    volumes:
-      - db_value:/var/lib/postgresql/data/
     env_file:
       - ../.env
     networks:
@@ -55,6 +53,8 @@ services:
     env_file:
       - ../.env
     restart: always
+    ports:
+      - "6379:6379"
     networks:
       - postgres
   
@@ -83,6 +83,22 @@ services:
       - redis
     ports:
       - "5555:5555"
+  
+  pgadmin:
+    container_name: pgadmin-poputka
+    restart: always
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    env_file:
+      - ../.env
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    platform: linux/amd64
     
 
 
@@ -91,5 +107,4 @@ networks:
     driver: bridge
 
 volumes:
-  db_value:
   pgadmin:
