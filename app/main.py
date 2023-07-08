@@ -1,9 +1,9 @@
+import sentry_sdk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
-import sentry_sdk
 
 from app.auth.router import router as auth_router
 from app.config import settings

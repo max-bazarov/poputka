@@ -6,8 +6,8 @@ from app.auth.schemas import UserAuthLoginSchema, UserAuthRegisterSchema
 from app.auth.security import check_password, hash_password
 from app.core.service import BaseService
 from app.database import async_session_maker
-from app.users.models import User
 from app.logger import logger
+from app.users.models import User
 
 
 class UserService(BaseService):
@@ -32,9 +32,7 @@ class UserService(BaseService):
                 msg = "Database Exc: Cannot register user"
             elif isinstance(e, Exception):
                 msg = "Unknown Exc: Cannot register user"
-            extra = {
-                **auth_data.dict()
-            }
+            extra = {**auth_data.dict()}
             logger.error(msg, extra=extra, exc_info=True)
 
     @classmethod
