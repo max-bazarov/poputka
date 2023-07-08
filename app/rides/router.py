@@ -24,8 +24,7 @@ async def get_ride(ride_id: int) -> RideReadSchema:
 
 @router.post('', status_code=status.HTTP_201_CREATED)
 async def create_ride(new_ride: RideCreateSchema) -> RideReadSchema:
-    ride = await RidesService.create(**new_ride.dict())
-    return ride
+    return await RidesService.create(**new_ride.dict())
 
 
 @router.patch('/{ride_id}', status_code=status.HTTP_200_OK)

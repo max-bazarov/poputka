@@ -2,7 +2,7 @@
 name = "poputka"
 version = "0.1.0"
 description = ""
-authors = ["samsegomof <wemagonof91@gmail.com>"]
+authors = ["Max Bazarov <bazaroffm@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
