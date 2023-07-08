@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
+import sentry_sdk
 
 from app.auth.router import router as auth_router
 from app.config import settings
@@ -13,9 +14,15 @@ app = FastAPI(
     title='Попутка - поиск автомобильных попутчиков', root_path='/api'
 )
 
+sentry_sdk.init(
+    dsn=settings.SENTRY_DSN,
+    traces_sample_rate=1.0,
+)
+
 origins = [
     "http://frontend:5000",  # React app
     "http://localhost:3100",  # React app localhost
+    "http://localhost:8000",
 ]
 
 app.add_middleware(
