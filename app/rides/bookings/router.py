@@ -13,9 +13,10 @@ async def get_bookings(ride_id: int) -> list[BookingReadSchema]:
 
 @router.post('/{ride_id}/bookings')
 async def add_booking(
-    ride_id: int, new_booking: BookingCreateSchema, user: User = Depends(get_current_user())
+    ride_id: int, new_booking: BookingCreateSchema,
+    user: User = Depends(get_current_user())
 ) -> BookingReadSchema:
-    booking = await BookingService.create(**new_booking.dict(), user.id)
+    booking = await BookingService.create(user.id, **new_booking.dict())
     return booking
 
 
