@@ -1,12 +1,13 @@
 """init
 
 Revision ID: 616e8e84c1ad
-Revises:
+Revises: 
 Create Date: 2023-06-26 22:55:28.490892
 
 """
 from alembic import op
 import sqlalchemy as sa
+
 
 # revision identifiers, used by Alembic.
 revision = '616e8e84c1ad'
@@ -26,52 +27,63 @@ def upgrade() -> None:
         sa.Column('license_plate_number', sa.String(), nullable=False),
         sa.PrimaryKeyConstraint('id'),
     )
-
-    op.create_table('user',
-                    sa.Column('id', sa.UUID(), nullable=False),
-                    sa.Column('email', sa.String(length=254), nullable=False),
-                    sa.Column('name', sa.String(length=254), nullable=False),
-                    sa.Column('surname', sa.String(length=254), nullable=False),
-                    sa.Column('phone_number', sa.String(), nullable=True),
-                    sa.Column('car_id', sa.Integer(), nullable=True),
-                    sa.Column('age', sa.Integer(), nullable=True),
-                    sa.Column('likes', sa.Integer(), nullable=False),
-                    sa.Column('dislikes', sa.Integer(), nullable=False),
-                    sa.Column('registered_at', sa.TIMESTAMP(), nullable=False),
-                    sa.Column('password', sa.LargeBinary(), nullable=False),
-                    sa.Column('is_admin', sa.Boolean(), nullable=False),
-                    sa.Column('is_active', sa.Boolean(), nullable=False),
-                    sa.Column('is_verified', sa.Boolean(), nullable=False),
-                    sa.ForeignKeyConstraint(['car_id'], ['car.id'], ),
-                    sa.PrimaryKeyConstraint('id')
-                    )
-    op.create_table('refresh_token',
-                    sa.Column('uuid', sa.UUID(), nullable=False),
-                    sa.Column('user_id', sa.UUID(), nullable=False),
-                    sa.Column('refresh_token', sa.String(), nullable=False),
-                    sa.Column('expires_at', sa.TIMESTAMP(), nullable=False),
-                    sa.Column('created_at', sa.TIMESTAMP(), nullable=False),
-                    sa.Column('updated_at', sa.TIMESTAMP(), nullable=False),
-                    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
-                    sa.PrimaryKeyConstraint('uuid')
-                    )
-    op.create_table('ride',
-                    sa.Column('id', sa.Integer(), nullable=False),
-                    sa.Column('driver', sa.UUID(), nullable=False),
-                    sa.Column('car', sa.Integer(), nullable=False),
-                    sa.Column('places', sa.Integer(), nullable=False),
-                    sa.Column('destination_city', sa.String(), nullable=False),
-                    sa.Column('destination_address', sa.String(), nullable=False),
-                    sa.Column('departure_city', sa.String(), nullable=False),
-                    sa.Column('departure_address', sa.String(), nullable=False),
-                    sa.Column('date', sa.Date(), nullable=False),
-                    sa.Column('time', sa.Time(), nullable=False),
-                    sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
-                    sa.Column('description', sa.String(), nullable=True),
-                    sa.ForeignKeyConstraint(['car'], ['car.id'], ),
-                    sa.ForeignKeyConstraint(['driver'], ['user.id'], ),
-                    sa.PrimaryKeyConstraint('id')
-
+    op.create_table(
+        'user',
+        sa.Column('id', sa.Integer(), nullable=False),
+        sa.Column('email', sa.String(length=254), nullable=False),
+        sa.Column('name', sa.String(length=254), nullable=False),
+        sa.Column('surname', sa.String(length=254), nullable=False),
+        sa.Column('phone_number', sa.String(), nullable=True),
+        sa.Column('car_id', sa.Integer(), nullable=True),
+        sa.Column('age', sa.Integer(), nullable=True),
+        sa.Column('likes', sa.Integer(), nullable=False),
+        sa.Column('dislikes', sa.Integer(), nullable=False),
+        sa.Column('registered_at', sa.TIMESTAMP(), nullable=False),
+        sa.Column('password', sa.LargeBinary(), nullable=False),
+        sa.Column('is_admin', sa.Boolean(), nullable=False),
+        sa.Column('is_active', sa.Boolean(), nullable=False),
+        sa.Column('is_verified', sa.Boolean(), nullable=False),
+        sa.ForeignKeyConstraint(
+            ['car_id'],
+            ['car.id'],
+        ),
+        sa.PrimaryKeyConstraint('id'),
+    )
+    op.create_table(
+        'refresh_token',
+        sa.Column('uuid', sa.UUID(), nullable=False),
+        sa.Column('user_id', sa.Integer(), nullable=False),
+        sa.Column('refresh_token', sa.String(), nullable=False),
+        sa.Column('expires_at', sa.TIMESTAMP(), nullable=False),
+        sa.Column('created_at', sa.TIMESTAMP(), nullable=False),
+        sa.Column('updated_at', sa.TIMESTAMP(), nullable=False),
+        sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
+        sa.PrimaryKeyConstraint('uuid'),
+    )
+    op.create_table(
+        'ride',
+        sa.Column('id', sa.Integer(), nullable=False),
+        sa.Column('driver', sa.Integer(), nullable=False),
+        sa.Column('car', sa.Integer(), nullable=False),
+        sa.Column('places', sa.Integer(), nullable=False),
+        sa.Column('destination_city', sa.String(), nullable=False),
+        sa.Column('destination_address', sa.String(), nullable=False),
+        sa.Column('departure_city', sa.String(), nullable=False),
+        sa.Column('departure_address', sa.String(), nullable=False),
+        sa.Column('date', sa.Date(), nullable=False),
+        sa.Column('time', sa.Time(), nullable=False),
+        sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
+        sa.Column('description', sa.String(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ['car'],
+            ['car.id'],
+        ),
+        sa.ForeignKeyConstraint(
+            ['driver'],
+            ['user.id'],
+        ),
+        sa.PrimaryKeyConstraint('id'),
+    )
     # ### end Alembic commands ###
 
 

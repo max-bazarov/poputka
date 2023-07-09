@@ -56,7 +56,7 @@ def get_token_settings(
         'httponly': True,
         'samesite': 'strict',
         'secure': config.SECURE_COOKIES,
-        #'domain': settings.SITE_DOMAIN,
+        'domain': settings.SITE_DOMAIN,
     }
     if expired:
         return base_cookie

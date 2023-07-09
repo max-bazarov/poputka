@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from datetime import datetime
 
 from sqlalchemy import (
@@ -10,7 +8,6 @@ from sqlalchemy import (
     Integer,
     LargeBinary,
     String,
-    UUID
 )
 
 from app.database import Base
@@ -19,7 +16,7 @@ from app.database import Base
 class User(Base):
     __tablename__ = 'user'
 
-    id = Column(UUID, primary_key=True, default=uuid4)
+    id = Column(Integer, primary_key=True)
     email = Column(String(length=254), nullable=False)
     name = Column(String(length=254), nullable=False)
     surname = Column(String(length=254), nullable=False)

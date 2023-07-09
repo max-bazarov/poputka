@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    #image: digitalspaghetti/poputka-backend:latest
+    # image: digitalspaghetti/poputka-backend:latest
     build:
       context: ../
     container_name: backend
@@ -24,12 +24,12 @@ services:
     networks:
       - postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
     
   frontend:
-    image: digitalspaghetti/poputka-frontend:latest
-#    build:
-#      context: ../frontend
+    # image: digitalspaghetti/poputka-frontend:latest
+    build:
+      context: ../frontend
     container_name: frontend
     restart: always
     networks:
@@ -38,7 +38,7 @@ services:
   nginx:
     image: nginx:1.21.3-alpine
     ports:
-      - "86:80"
+      - "80:80"
       - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
