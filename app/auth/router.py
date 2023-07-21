@@ -58,7 +58,8 @@ async def register_user(
 
 @router.post('/login', status_code=status.HTTP_200_OK)
 async def login_user(
-    auth_data: UserAuthLoginSchema, response: Response
+    response: Response,
+    auth_data: UserAuthLoginSchema,
 ) -> UserAccessTokenResponseSchema:
     user = await UserService.authenticate_user(auth_data)
     refresh_token_value = await create_refresh_token(user_id=user.get('id'))
