@@ -5,7 +5,7 @@ from app.tasks.celery import celery
 
 
 @celery.task
-def send_verification_email(
+async def send_verification_email(
     user_email: EmailStr, user_name: str, user_id: int
 ):
-    send_email(user_email=user_email, user_name=user_name, user_id=user_id)
+    await send_email(user_email=user_email, user_name=user_name, user_id=user_id)
