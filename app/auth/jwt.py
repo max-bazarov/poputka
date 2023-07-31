@@ -1,39 +1,52 @@
 import secrets
-import uuid
 from datetime import datetime, timedelta
-from typing import Any, Optional
+from typing import Any
+from uuid import UUID
 
 from jose import jwt
-from sqlalchemy import insert
 
 from app.auth.config import config
-from app.auth.models import RefreshToken
+from app.auth.service import RefreshTokenService
 from app.config import settings
-from app.database import async_session_maker
 
 
-async def create_refresh_token(
-    *, user_id: int, refresh_token: Optional[str] = None
-) -> str:
-    async with async_session_maker() as session:
-        if not refresh_token:
-            refresh_token = secrets.token_urlsafe(32)
-
-        query = insert(RefreshToken).values(
-            uuid=uuid.uuid4(),
-            refresh_token=refresh_token,
-            expires_at=(
-                datetime.utcnow() + timedelta(seconds=config.REFRESH_TOKEN_EXP)
-            ),
-            user_id=user_id,
-        )
-        await session.execute(query)
-        await session.commit()
-
-        return refresh_token
+def _create_refresh_token_value():
+    return secrets.token_urlsafe(32)
 
 
-def create_access_token(user_id: int) -> str:
+async def create_refresh_token(*, user_id: int) -> str:
+    old_refresh_token = await RefreshTokenService.get_object_or_none(user_id=user_id)
+    if old_refresh_token:
+        await RefreshTokenService.delete(uuid=old_refresh_token.uuid)
+
+    refresh_token_value = _create_refresh_token_value()
+
+    await RefreshTokenService.create(
+        refresh_token=refresh_token_value,
+        expires_at=(
+            datetime.utcnow() + timedelta(seconds=config.REFRESH_TOKEN_EXP)
+        ),
+        user_id=user_id,
+    )
+
+    return refresh_token_value
+
+
+async def update_refresh_token(*, old_refresh_token: UUID) -> str:
+    refresh_token_value = _create_refresh_token_value()
+
+    await RefreshTokenService.update(
+        uuid=old_refresh_token.uuid,
+        refresh_token=refresh_token_value,
+        expires_at=(
+            datetime.utcnow() + timedelta(seconds=config.REFRESH_TOKEN_EXP)
+        ),
+    )
+
+    return refresh_token_value
+
+
+async def create_access_token(user_id: int) -> str:
     expires_delta = timedelta(seconds=config.ACCESS_TOKEN_EXP)
     jwt_data = {
         'iss': settings.SITE_DOMAIN,
