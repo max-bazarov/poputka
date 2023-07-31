@@ -1,7 +1,10 @@
-from sqlalchemy import insert
+from uuid import UUID
+
+from sqlalchemy import delete, insert, update
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.auth.exceptions import InvalidCredentialsException
+from app.auth.models import RefreshToken
 from app.auth.schemas import UserAuthLoginSchema, UserAuthRegisterSchema
 from app.auth.security import check_password, hash_password
 from app.core.service import BaseService
@@ -45,3 +48,27 @@ class UserService(BaseService):
             raise InvalidCredentialsException()
 
         return user
+
+
+class RefreshTokenService(BaseService):
+    model = RefreshToken
+
+    @classmethod
+    async def update(cls, *, uuid: UUID, **data):
+        async with async_session_maker() as session:
+            query = (
+                update(cls.model)
+                .where(cls.model.uuid == uuid)
+                .values(**data)
+                .returning(cls.model)
+            )
+            result = await session.execute(query)
+            await session.commit()
+            return result.mappings().first()
+
+    @classmethod
+    async def delete(cls, *, uuid: UUID):
+        async with async_session_maker() as session:
+            query = delete(cls.model).where(cls.model.uuid == uuid)
+            await session.execute(query)
+            await session.commit()
