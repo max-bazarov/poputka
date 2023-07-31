@@ -13,8 +13,8 @@ env = Environment(
 )
 
 
-def create_email(user_email: str, user_name: str, user_id: int):
-    token = create_access_token(user_id=user_id)
+async def create_email(user_email: str, user_name: str, user_id: int):
+    token = await create_access_token(user_id=user_id)
     body = {'name': user_name, 'token': token}
 
     template = env.get_template('email_verif.html')
@@ -29,8 +29,8 @@ def create_email(user_email: str, user_name: str, user_id: int):
     return email
 
 
-def send_email(user_email: EmailStr, user_name: str, user_id: int):
-    email = create_email(
+async def send_email(user_email: EmailStr, user_name: str, user_id: int):
+    email = await create_email(
         user_email=user_email, user_name=user_name, user_id=user_id
     )
 
