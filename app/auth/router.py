@@ -1,4 +1,4 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, Response, status
+from fastapi import APIRouter, Depends, Response, status
 
 from app.auth.config import config
 from app.auth.dependencies import (
@@ -10,6 +10,7 @@ from app.auth.jwt import (
     create_access_token,
     create_refresh_token,
     get_token_settings,
+    update_refresh_token,
 )
 from app.auth.models import RefreshToken
 from app.auth.schemas import (
@@ -32,7 +33,7 @@ async def register_user(
 ) -> UserAccessTokenResponseSchema:
     user = await UserService.create(auth_data)
     refresh_token_value = await create_refresh_token(user_id=user.id)
-    access_token_value = create_access_token(user_id=user.id)
+    access_token_value = await create_access_token(user_id=user.id)
 
     response.set_cookie(
         **get_token_settings(
@@ -49,7 +50,7 @@ async def register_user(
         )
     )
 
-    send_verification_email.delay(user.email, user.name, user.id)
+    await send_verification_email.delay(user.email, user.name, user.id)
 
     return UserAccessTokenResponseSchema(
         access_token=access_token_value, refresh_token=refresh_token_value
@@ -62,9 +63,9 @@ async def login_user(
     auth_data: UserAuthLoginSchema,
 ) -> UserAccessTokenResponseSchema:
     user = await UserService.authenticate_user(auth_data)
-    refresh_token_value = await create_refresh_token(user_id=user.get('id'))
-    access_token_value = create_access_token(
-        user_id=user.get('id'),
+    refresh_token_value = await create_refresh_token(user_id=user.id)
+    access_token_value = await create_access_token(
+        user_id=user.id,
     )
 
     response.set_cookie(
@@ -88,18 +89,33 @@ async def login_user(
     )
 
 
-@router.put('/tokens')
+@router.put('/refresh')
 async def refresh_token(
-    worker: BackgroundTasks,
     response: Response,
     refresh_token: RefreshToken = Depends(valid_refresh_token),
     user: User = Depends(valid_refresh_token_user),
 ) -> UserAccessTokenResponseSchema:
     '''
     Endpoint for refreshing your access token with your refresh
-    token if you lost your access token or someone stole it.
+    token if your access token is expired or someone stole your refresh token.
     '''
-    pass
+    refresh_token_value = await update_refresh_token(
+        old_refresh_token=refresh_token
+    )
+    access_token_value = await create_access_token(user_id=user.id)
+
+    response.set_cookie(
+        **get_token_settings(
+            refresh_token_value,
+            config.REFRESH_TOKEN_KEY,
+            config.REFRESH_TOKEN_EXP,
+        )
+    )
+
+    return UserAccessTokenResponseSchema(
+        access_token=access_token_value,
+        refresh_token=refresh_token_value,
+    )
 
 
 @router.delete('/logout', status_code=status.HTTP_200_OK)
