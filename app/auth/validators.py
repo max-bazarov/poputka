@@ -8,7 +8,7 @@ PHONE_NUMBER_PATTERN = re.compile(
     r'^(?:\+7|8)?[-(]?\d{3}[-)]?\d{3}[-]?\d{2}[-]?\d{2}$'
 )
 
-EMAIL_PATTERN = re.compile(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+EMAIL_PATTERN = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
 
 
 def validate_email(email: str) -> None:
