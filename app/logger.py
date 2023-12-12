@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pythonjsonlogger import jsonlogger
 
-from app.config import settings
+from app.config import app_settings
 
 logger = logging.getLogger()
 
@@ -12,9 +12,7 @@ logHandler = logging.StreamHandler()
 
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
     def add_fields(self, log_record, record, message_dict):
-        super(CustomJsonFormatter, self).add_fields(
-            log_record, record, message_dict
-        )
+        super(CustomJsonFormatter, self).add_fields(log_record, record, message_dict)
         if not log_record.get("timestamp"):
             now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             log_record["timestamp"] = now
@@ -30,4 +28,4 @@ formatter = CustomJsonFormatter(
 
 logHandler.setFormatter(formatter)
 logger.addHandler(logHandler)
-logger.setLevel(settings.LOG_LEVEL)
+logger.setLevel(app_settings.LOG_LEVEL)

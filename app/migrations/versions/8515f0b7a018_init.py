@@ -1,8 +1,8 @@
-"""init
+"""Init
 
-Revision ID: a90eefb97ed9
+Revision ID: 8515f0b7a018
 Revises: 
-Create Date: 2023-07-25 19:50:50.432593
+Create Date: 2023-10-11 17:46:58.056401
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a90eefb97ed9'
+revision = '8515f0b7a018'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,12 +31,12 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=254), nullable=False),
     sa.Column('name', sa.String(length=254), nullable=False),
     sa.Column('surname', sa.String(length=254), nullable=False),
-    sa.Column('phone_number', sa.String(), nullable=True),
+    sa.Column('phone_number', sa.String(length=12), nullable=True),
     sa.Column('car_id', sa.Integer(), nullable=True),
     sa.Column('age', sa.Integer(), nullable=True),
     sa.Column('likes', sa.Integer(), nullable=False),
     sa.Column('dislikes', sa.Integer(), nullable=False),
-    sa.Column('registered_at', sa.TIMESTAMP(), nullable=False),
+    sa.Column('registered_at', sa.DateTime(), nullable=False),
     sa.Column('password', sa.LargeBinary(), nullable=False),
     sa.Column('is_admin', sa.Boolean(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
@@ -45,14 +45,14 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('refresh_token',
-    sa.Column('uuid', sa.UUID(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('refresh_token', sa.String(), nullable=False),
     sa.Column('expires_at', sa.DateTime(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('uuid')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('ride',
     sa.Column('id', sa.Integer(), nullable=False),

@@ -10,7 +10,7 @@ from sqlalchemy import (
     Time,
 )
 
-from app.database import Base
+from app.db import Base
 
 
 class Ride(Base):

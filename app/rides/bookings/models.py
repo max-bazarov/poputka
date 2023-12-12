@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer
 
-from app.database import Base
+from app.db import Base
 
 
 class Booking(Base):

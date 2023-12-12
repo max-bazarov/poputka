@@ -6,22 +6,21 @@ from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 
 from app.auth.router import router as auth_router
-from app.config import settings
-from app.rides.bookings.router import router as bookings_router
-from app.rides.router import router as rides_router
+from app.config import app_settings
 
-app = FastAPI(
-    title='Попутка - поиск автомобильных попутчиков', root_path='/api'
-)
+# from app.rides.bookings.router import router as bookings_router
+# from app.rides.router import router as rides_router
+
+app = FastAPI(title="Попутка - поиск автомобильных попутчиков", root_path="/api")
 
 sentry_sdk.init(
-    dsn=settings.SENTRY_DSN,
+    dsn=app_settings.SENTRY_DSN,
     traces_sample_rate=1.0,
 )
 
 origins = [
-    "http://frontend:5000",  # React app
-    "http://localhost:3100",  # React app localhost
+    "http://frontend:5000",
+    "http://localhost:3100",
     "http://localhost:8000",
 ]
 
@@ -41,14 +40,14 @@ app.add_middleware(
 
 
 app.include_router(auth_router)
-app.include_router(rides_router)
-app.include_router(bookings_router)
+# app.include_router(rides_router)
+# app.include_router(bookings_router)
 
 
 @app.on_event("startup")
 async def startup_event():
     redis = aioredis.from_url(
-        f'redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}',
+        f"redis://{app_settings.REDIS_HOST}:{app_settings.REDIS_PORT}",
         encoding="utf-8",
         decode_response=True,
     )

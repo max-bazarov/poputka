@@ -1,20 +1,25 @@
-from datetime import datetime
-from uuid import uuid4
+from datetime import date, datetime
 
-from sqlalchemy import UUID, Column, DateTime, ForeignKey, String
+from sqlalchemy import DateTime, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 
-from app.database import Base
+from app.db import Base
 
 
 class RefreshToken(Base):
-    __tablename__ = 'refresh_token'
+    __tablename__ = "refresh_token"
 
-    uuid = Column(UUID, primary_key=True, default=uuid4)
-    user_id = Column(ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
-    refresh_token = Column(String, nullable=False)
-    expires_at = Column(DateTime, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id", ondelete="CASCADE"), nullable=False
+    )
+    refresh_token: Mapped[str] = mapped_column(nullable=False)
+    expires_at: Mapped[date] = mapped_column(DateTime, nullable=False)
+    created_at: Mapped[date] = mapped_column(
+        DateTime, default=datetime.utcnow, nullable=False
+    )
+    updated_at: Mapped[date] = mapped_column(
         DateTime,
+        default=datetime.utcnow,
         onupdate=datetime.utcnow,
     )

@@ -1,12 +1,12 @@
 import os
 from typing import Literal
 
-from pydantic import BaseSettings
+from pydantic_settings import SettingsConfigDict, BaseSettings
 
 
 class Settings(BaseSettings):
-    MODE: Literal['DEV', 'PROD', 'TEST']
-    LOG_LEVEL: Literal['INFO', 'DEBUG']
+    MODE: Literal["DEV", "PROD", "TEST"]
+    LOG_LEVEL: Literal["INFO", "DEBUG"]
 
     SITE_DOMAIN: str
 
@@ -23,12 +23,12 @@ class Settings(BaseSettings):
 
     @property
     def database_url(self):
-        user = f'{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}'
+        user = f"{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
         database = f"{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
-        return f'postgresql+asyncpg://{user}@{database}'
+        return f"postgresql+asyncpg://{user}@{database}"
 
-    class Config:
-        env_file = '.env' if os.getenv('MODE') != 'TEST' else '.env_test'
+    env_file: str = ".env" if os.getenv("MODE") != "TEST" else ".env_test"
+    model_config = SettingsConfigDict(env_file=env_file, extra="allow")
 
 
-settings = Settings()
+app_settings = Settings()

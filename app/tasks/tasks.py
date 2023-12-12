@@ -1,11 +1,31 @@
-from pydantic import EmailStr
+import smtplib
+from email.errors import MessageError
+from email.message import EmailMessage
 
-from app.auth.email import send_email
+from app.email.config import email_settings
+from app.logger import logger
 from app.tasks.celery import celery
 
 
 @celery.task
-async def send_verification_email(
-    user_email: EmailStr, user_name: str, user_id: int
+def create_sending_email_task(
+    email: EmailMessage,
 ):
-    await send_email(user_email=user_email, user_name=user_name, user_id=user_id)
+    with smtplib.SMTP_SSL(
+        email_settings.MAIL_SERVER, email_settings.MAIL_PORT
+    ) as server:
+        try:
+            server.login(email_settings.MAIL_USERNAME, email_settings.MAIL_PASSWORD)
+            server.send_message(email)
+            logger.info(
+                "Message was sent",
+                exc_info=True,
+            )
+
+        except (MessageError, Exception) as e:
+            if isinstance(e, MessageError):
+                msg = "Email Exc: Cannot send message"
+            elif isinstance(e, Exception):
+                msg = "Uknown Exc: Cannot send message"
+
+            logger.error(msg, exc_info=True)

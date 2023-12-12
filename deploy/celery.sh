@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "${1}" == "celery" ]]; then
-    celery --app=app.tasks.celery:celery worker
+    celery --app=app.tasks.celery:celery worker -l INFO
 elif [[ "${1}" == "flower" ]]; then
-    celery --app=app.tasks.celery:celery flower
+    celery --app=app.tasks.celery:celery flower --url_prefix=/flower
 fi

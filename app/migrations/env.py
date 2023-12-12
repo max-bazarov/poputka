@@ -8,8 +8,8 @@ from sqlalchemy import engine_from_config, pool
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
 from app.auth.models import RefreshToken
-from app.config import settings
-from app.database import Base
+from app.config import app_settings
+from app.db import Base
 from app.rides.models import Car, Ride
 from app.users.models import User
 
@@ -18,7 +18,7 @@ from app.users.models import User
 config = context.config
 
 config.set_main_option(
-    'sqlalchemy.url', f'{settings.database_url}?async_fallback=True'
+    "sqlalchemy.url", f"{app_settings.database_url}?async_fallback=True"
 )
 
 # Interpret the config file for Python logging.
@@ -76,9 +76,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

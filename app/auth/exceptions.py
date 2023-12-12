@@ -13,5 +13,5 @@ class TokenAbsentException(NotAuthenticatedException):
     DETAIL = 'Токен отсутствует.'
 
 
-class RefreshTokenNotValid(BadRequestException):
+class RefreshTokenIsNotValid(BadRequestException):
     DETAIL = 'Невалидный refresh токен'

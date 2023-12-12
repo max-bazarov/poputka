@@ -1,7 +1,7 @@
 from sqlalchemy import insert
 
 from app.core.service import BaseService
-from app.database import async_session_maker
+from app.db import async_session_maker
 from app.rides.models import Ride
 from app.users.models import User
 

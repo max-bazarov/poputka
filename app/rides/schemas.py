@@ -26,7 +26,7 @@ class RideReadSchema(BaseModel):
     description: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class RideCreateSchema(BaseModel):
@@ -42,7 +42,7 @@ class RideCreateSchema(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class RideUpdateSchema(BaseModel):
@@ -57,4 +57,4 @@ class RideUpdateSchema(BaseModel):
     description: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
